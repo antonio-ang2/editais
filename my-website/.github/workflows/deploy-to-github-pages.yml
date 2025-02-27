@@ -2,11 +2,12 @@ name: Deploy Docusaurus
 
 on:
   push:
-    branches: 
+    branches:
       - main
-      # - dev
     paths:
       - "docs/**"
+      - "src/**"
+      - "docusaurus.config.js"
   workflow_dispatch:
 
 permissions:
@@ -36,13 +37,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: "npm"
 
-      - name: Install and Build
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Docusaurus
         run: |
           cd ./docs
           npm install
           npm run build
-          mv build ../build
+          echo "meusite.com" > build/CNAME || true # Opcional, caso tenha um domínio personalizado
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -50,7 +55,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build
+          path: build
 
       - name: Deploy to GitHub Pages
         id: deployment

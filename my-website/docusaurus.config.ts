@@ -20,7 +20,7 @@ const config: Config = {
   organizationName: 'antonio-ang2', // Usually your GitHub org/user name.
   trailingSlash: false,
   projectName: 'editais', // Usually your repo name.
-
+  deploymentBranch: 'main',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
